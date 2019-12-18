@@ -6,10 +6,13 @@
 %  **/
 
 function XML=XML_Manager(name_file)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% name_file is the name of the file to read. %
-% Absolute and relative paths are accepted  %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% name_file is the name of the file to read.           %
+% Absolute and relative paths are accepted.          %
+%                                                                                       %
+% In case the value of an attribute is a number,    %
+% it is automatically converted using str2num.       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fclose('all');
 
@@ -145,6 +148,11 @@ if( ( Field.content(1) ~= '"' ) || ( Field.content(end) ~= '"' ) )
 end
 
 Field.content=Field.content(2:(end-1));
+
+[content_as_num, status] = str2num(Field.content);
+if(status == 1)
+    Field.content = content_as_num;
+end
 
 end
 
